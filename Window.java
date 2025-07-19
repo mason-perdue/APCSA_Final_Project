@@ -23,7 +23,7 @@ public class Window{
         frame.setResizable(false);
         // allows x on window border to quit program
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         // creates instance of game
         MyGame game = new MyGame();
         // adds game frame to window
@@ -163,7 +163,7 @@ class MyGame extends JPanel implements ActionListener, KeyListener{
 
         // create Player object by calling Player() constructor
         player = new Player(((px * cols) / 2 - px), (height - (px * 2)), (px * 2), px, playerImg);
-        
+
         // create Enemy object array
         enemyArr = new ArrayList<Enemy>();
         // calls Enemy constructor 10 times and then adds the new objects to the ArrayList
@@ -234,7 +234,7 @@ class MyGame extends JPanel implements ActionListener, KeyListener{
             if(!enemyArr.get(i).alive){
                 enemyArr.set(i, new Enemy(2 * px, px, enemyImgArr.get((int) (Math.random() * enemyImgArr.size()))));
             }
-            
+
             // else if conditionals use boolean comparison operator for equals to change the image of each enemy depending on their health
             if(enemyArr.get(i).health == 4){
                 img = enemyImgArr.get(0);
@@ -300,7 +300,7 @@ class MyGame extends JPanel implements ActionListener, KeyListener{
             if(enemy.y >= (height - px)){
                 enemy.alive = false;
             }
-            
+
             // checks for collision between enemy and player
             if((enemy.x + enemy.w / 2 ) >= player.x && (enemy.x + enemy.w / 2 ) <= player.x + player.w && enemy.y + enemy.h >= player.y){
                 gameOver = true;
@@ -395,7 +395,7 @@ class MyGame extends JPanel implements ActionListener, KeyListener{
                 score = 0;
                 gameOver = false;
                 gameTimer.start();
-            }   
+            }
         }
 
         // left arrow moves player left on px

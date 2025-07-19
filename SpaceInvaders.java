@@ -19,17 +19,17 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
     int boardWidth = tileSize * columns;
     // 512 px 
     int boardHeight = tileSize * rows;
-    
+
     // variables to hold Images
     Image shipImg;
     Image alienImg;
     Image alienCyanImg;
     Image alienMagentaImg;
     Image alienYellowImg;
-    
+
     // ArrayList to hold Image objects of aliens
     ArrayList<Image> alienImgArray;
-    
+
     // variables for ship
     // 64 px
     int shipWidth = tileSize * 2;
@@ -43,7 +43,7 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
     int shipVelocityX = tileSize;
     // Block variable to hold a ship block object
     Block ship;
-    
+
     // variables for alien
     // list to hold Block objects for aliens
     ArrayList<Block> alienArray;
@@ -68,7 +68,7 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
     int bulletHeight = tileSize / 2;
     // speed at which bullet moves
     int bulletVelocityY = -10;
-    
+
     // class to use as base for images of ship and aliens
     class Block{
         // x and y are for top left corner of images
@@ -81,7 +81,7 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
         boolean alive = true;
         // used for bullets
         boolean used = false;
-        
+
         // constructs block object with parameters
         public Block(int x, int y, int width, int height, Image img){
             // instantiates instance variables based on arguments
@@ -92,7 +92,7 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
             this.img = img;
         }
     }
-    
+
     // declares Timer object to allow screen to be refreshed
     Timer gameLoop;
 
@@ -101,7 +101,7 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
 
     // boolean to track game over
     boolean gameOver = false;
-    
+
     // constructs object 
     public SpaceInvaders(){
         // sets board size to 512 pixels square
@@ -112,7 +112,7 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
         setFocusable(true);
         // listens for key inputs and then calls method
         addKeyListener(this);
-        
+
         // load images
         // getClass() gets file location of this class file
         // getResource() gets file based on directory of the class (./)
@@ -122,7 +122,7 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
         alienCyanImg = new ImageIcon(getClass().getResource("./rsc/alien-cyan.png")).getImage();
         alienMagentaImg = new ImageIcon(getClass().getResource("./rsc/alien-magenta.png")).getImage();
         alienYellowImg = new ImageIcon(getClass().getResource("./rsc/alien-yellow.png")).getImage();
-        
+
         // instanciates alien ArrayList
         alienImgArray = new ArrayList<Image>();
         // adds alien Image objects to array
@@ -130,16 +130,16 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
         alienImgArray.add(alienCyanImg);
         alienImgArray.add(alienMagentaImg);
         alienImgArray.add(alienYellowImg);
-        
+
         // instantiates ship variable to a Block object
         ship = new Block(shipX, shipY, shipWidth, shipHeight, shipImg);
-        
+
         // creates alien array list
         alienArray = new ArrayList<Block>();
 
         // creates a bullet array list
         bulletArray = new ArrayList<Block>();
-        
+
         // makes game loop timer
         // instantiates gameLoop with a delay of 1/60th of a second and an action to repeat (this is the class)
         gameLoop = new Timer(1000/60, this);
@@ -148,19 +148,19 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
         // starts game loop
         gameLoop.start();
     }
-    
-    // 
+
+    //
     public void paintComponent(Graphics g){
         // calls method from parent class
         super.paintComponent(g);
         // calls draw method with Graphic g as arguement
         draw(g);
     }
-    
+
     public void draw(Graphics g){
         // draws ship image on screen
         g.drawImage(ship.img, ship.x, ship.y, ship.width, ship.height, null);
-        
+
         // draws aliens images on screen
         for(int i = 0; i < alienArray.size(); i++){
             // sets alien variable to each block object in array list
@@ -200,11 +200,11 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
             g.drawString(String.valueOf(score), 10, 35);
         }
     }
-    
+
     public void createAliens(){
         // creates random object
         Random random = new Random();
-        
+
         // iterates through each row
         for(int r = 0; r < alienRows; r++){
             // iterates through each column
@@ -220,26 +220,26 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
         // sets alien count variable to length 
         alienCount = alienArray.size();
     }
-    
+
     // hanles movement for aliens and bullets
     public void move(){
         // iterates through alien array list
         for(int i = 0; i < alienArray.size(); i++){
             // sets var alien equal to each alien in array list
             Block alien = alienArray.get(i);
-            
+
             // checks if alien is alive
             if(alien.alive){
                 // increases x value by velocity
                 alien.x += alienVelocityX;
-                
+
                 // checks if alien is touching border
                 if(alien.x + alien.width >= boardWidth || alien.x <= 0){
                     // reverses movement direction
                     alienVelocityX *= -1;
                     // moves aliens back one pixel
                     alien.x += alienVelocityX * 2;
-                    
+
                     // iterates through indexes of each alien
                     for(int j = 0; j < alienArray.size(); j++){
                         // changes y of each alien to be one tile lower
@@ -307,7 +307,7 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
             createAliens();
         }
     }
-    
+
     // checks for alien bullet collisions
     public boolean detectCollision(Block a, Block b){
         // formula to check intersection of two rectangles
@@ -326,15 +326,15 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
             gameLoop.stop();
         }
     }
-    
+
     // determines what key is being pressed 
     @Override
     public void keyTyped(KeyEvent e){}
-    
+
     // determines if key is pressed down
     @Override
     public void keyPressed(KeyEvent e){}
-    
+
     // determines if key is released
     @Override
     public void keyReleased(KeyEvent e){

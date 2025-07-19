@@ -5,7 +5,7 @@ import javax.swing.*;
 public class App{
     public static void main(String[] args) {
         System.out.println("Running...");
-      
+
         // window vars
         int tileSize = 32;
         // int columns = 16;
@@ -14,7 +14,7 @@ public class App{
         int boardWidth = 512;
         // 512 px
         int boardHeight = tileSize * rows;
-        
+
         // creates new window
         JFrame frame = new JFrame("Space Invaders");
         // makes window correct size
@@ -25,7 +25,7 @@ public class App{
         frame.setResizable(false);
         // terminates program when x is pressed
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      
+
         // creates new SpaceInvaders object
         SpaceInvaders spaceInvaders = new SpaceInvaders();
         // adds spaceInvaders to the window
